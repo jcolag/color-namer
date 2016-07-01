@@ -6,6 +6,17 @@ import (
 	"strings"
 	)
 
+type color struct {
+	name	string
+	rgb	string
+	red	byte
+	green	byte
+	blue	byte
+	hue	byte
+	sat	byte
+	val	byte
+}
+
 func main() {
 	dat, err := ioutil.ReadFile("allcolor.csv")
 	if err != nil {
