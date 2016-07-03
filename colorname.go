@@ -36,12 +36,23 @@ func main() {
 
 	sdat := string(dat)
 	clines := strings.Split(sdat, "\n")
+	allcolors := make([]color, 0)
 	for i := 0; i < len(clines); i++ {
 		cparts := strings.Split(clines[i], ",")
 		if len(cparts) < 8 {
 			break
 		}
-		fmt.Println(clines[i])
+		r, _ := strconv.ParseUint(cparts[4], 10, 8)
+		g, _ := strconv.ParseUint(cparts[5], 10, 8)
+		b, _ := strconv.ParseUint(cparts[6], 10, 8)
+		h, _ := strconv.ParseUint(cparts[1], 10, 8)
+		s, _ := strconv.ParseUint(cparts[2], 10, 8)
+		v, _ := strconv.ParseUint(cparts[3], 10, 8)
+		c := color {cparts[0], cparts[7],
+			byte(r), byte(g), byte(b),
+			byte(h), byte(s), byte(v)}
+		allcolors = append(allcolors, c)
+		fmt.Println(c)
 	}
 }
 
