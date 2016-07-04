@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
 	"strconv"
 	"strings"
 	)
@@ -29,6 +30,13 @@ func (c *color) populateFromRgb(rgb string) {
 }
 
 func main() {
+	args := os.Args[1:]
+	if len(args) < 1 {
+		fmt.Println("Cannot run without a color.")
+		fmt.Printf("\t%s [RRGGBB]\n\n", os.Args[0])
+		os.Exit(-1)
+	}
+
 	dat, err := ioutil.ReadFile("allcolor.csv")
 	if err != nil {
 		panic(err)
