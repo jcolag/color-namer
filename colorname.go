@@ -37,6 +37,10 @@ func main() {
 		os.Exit(-1)
 	}
 
+	incolor := color{}
+	incolor.populateFromRgb(args[0])
+	incolor.name = "User Input"
+
 	dat, err := ioutil.ReadFile("allcolor.csv")
 	if err != nil {
 		panic(err)
@@ -60,7 +64,6 @@ func main() {
 			byte(r), byte(g), byte(b),
 			byte(h), byte(s), byte(v)}
 		allcolors = append(allcolors, c)
-		fmt.Println(c)
 	}
 }
 
