@@ -14,9 +14,9 @@ type color struct {
 	red	byte
 	green	byte
 	blue	byte
-	hue	byte
-	sat	byte
-	val	byte
+	hue	float64
+	sat	float64
+	val	float64
 }
 
 func (c *color) populateFromRgb(rgb string) {
@@ -62,7 +62,7 @@ func main() {
 		v, _ := strconv.ParseUint(cparts[3], 10, 8)
 		c := color {cparts[0], cparts[7],
 			byte(r), byte(g), byte(b),
-			byte(h), byte(s), byte(v)}
+			float64(h), float64(s), float64(v)}
 		allcolors = append(allcolors, c)
 	}
 }
