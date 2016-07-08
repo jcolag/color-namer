@@ -29,6 +29,9 @@ func (c *color) populateFromRgb(rgb string) {
 	c.blue = byte(bb)
 }
 
+func (c *color) populateHsvFromRgb() {
+}
+
 func main() {
 	args := os.Args[1:]
 	if len(args) < 1 {
