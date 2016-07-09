@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"math"
 	"os"
 	"strconv"
 	"strings"
@@ -30,6 +31,42 @@ func (c *color) populateFromRgb(rgb string) {
 }
 
 func (c *color) populateHsvFromRgb() {
+    var min, max, delta float64
+    
+    min = math.Min(float64(c.red), math.Min(float64(c.green), float64(c.blue)))
+    max = math.Max(float64(c.red), math.Max(float64(c.green), float64(c.blue)))
+    c.val = max / 256
+    delta = max - min
+    if max == 0 {
+        // All zero components
+        c.sat = 0
+        c.hue = 0
+        return
+    } else {
+        c.sat = delta / max
+    }
+    
+    if delta == 0 {
+        // Hue is irrelevant
+        c.hue = 0
+    } else if max == float64(c.red) {
+        // Hue is somewhere between yellow and magenta
+        c.hue = (float64(c.green) - float64(c.blue)) / delta
+    } else if max == float64(c.green) {
+        // ...between cyan and yellow
+        c.hue = 2 + (float64(c.blue) - float64(c.red)) / delta
+    } else {
+        // ...between magenta and cyan
+        c.hue = 4 + (float64(c.red) - float64(c.green)) / delta
+    }
+    
+    c.hue *= 60
+    if c.hue < 0 {
+        c.hue += 360
+    }
+    
+    // Convert degrees to radians
+    c.hue = c.hue * math.Pi / 180
 }
 
 func main() {
