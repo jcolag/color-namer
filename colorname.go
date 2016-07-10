@@ -9,6 +9,12 @@ import (
 	"strings"
 	)
 
+type position struct {
+    x float64
+    y float64
+    z float64
+}
+
 type color struct {
 	name	string
 	rgb	string
