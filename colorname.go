@@ -15,6 +15,13 @@ type position struct {
     z float64
 }
 
+func (p *position) distance(q position) float64 {
+	x := p.x - q.x
+	y := p.y - q.y
+	z := p.z - q.z
+	return math.Sqrt(x*x + y*y + z*z)
+}
+
 type color struct {
 	name	string
 	rgb	string
