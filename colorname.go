@@ -31,6 +31,7 @@ type color struct {
 	hue	float64
 	sat	float64
 	val	float64
+	distance float64
 }
 
 func (c *color) populateFromRgb(rgb string) {
@@ -80,6 +81,12 @@ func (c *color) populateHsvFromRgb() {
     
     // Convert degrees to radians
     c.hue = c.hue * math.Pi / 180
+
+func (c *color) populateDistance(d color) {
+	cp := position{c.sat * math.Cos(c.hue), c.sat * math.Sin(c.hue), c.val}
+	dp := position{d.sat * math.Cos(d.hue), d.sat * math.Sin(d.hue), d.val}
+	delta := cp.distance(dp)
+	c.distance = delta
 }
 
 func main() {
@@ -115,7 +122,11 @@ func main() {
 		v, _ := strconv.ParseUint(cparts[3], 10, 8)
 		c := color {cparts[0], cparts[7],
 			byte(r), byte(g), byte(b),
-			float64(h), float64(s), float64(v)}
+			float64(h) * math.Pi / 180, // Convert degrees to radians
+			float64(s) / 100,           // Normalize to unit circle
+			float64(v) / 100,           // Normalize to unit height
+			0}
+		c.populateDistance(incolor)
 		allcolors = append(allcolors, c)
 	}
 }
