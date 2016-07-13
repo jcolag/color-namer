@@ -100,6 +100,7 @@ func main() {
 	incolor := color{}
 	incolor.populateFromRgb(args[0])
 	incolor.name = "User Input"
+	incolor.populateHsvFromRgb()
 
 	dat, err := ioutil.ReadFile("allcolor.csv")
 	if err != nil {
@@ -109,6 +110,8 @@ func main() {
 	sdat := string(dat)
 	clines := strings.Split(sdat, "\n")
 	allcolors := make([]color, 0)
+	minDist := float64(2)
+	minDistIdx := -1
 	for i := 0; i < len(clines); i++ {
 		cparts := strings.Split(clines[i], ",")
 		if len(cparts) < 8 {
@@ -128,6 +131,10 @@ func main() {
 			0}
 		c.populateDistance(incolor)
 		allcolors = append(allcolors, c)
+		if c.distance < minDist {
+			minDist = c.distance
+			minDistIdx = i
+		}
 	}
 }
 
