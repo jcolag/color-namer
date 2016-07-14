@@ -136,5 +136,11 @@ func main() {
 			minDistIdx = i
 		}
 	}
-}
 
+	fmt.Println(incolor)
+	if minDistIdx < 0 {
+		fmt.Println("No match")
+	} else {
+		fmt.Println(allcolors[minDistIdx])
+	}
+}
