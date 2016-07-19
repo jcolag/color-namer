@@ -22,3 +22,7 @@ I would _like_ for input to be able to be formatted the way people would expect 
 
 The list of colors is generated from [Wikipedia's compact list of colors](https://en.wikipedia.org/wiki/List_of_colors_%28compact%29) with the included `wikicolor.sh` script, which has a high enough signal-to-noise ratio that the HTML parts can be stripped out without much trouble.
 
+## License
+
+_color-namer_ is released under the [GNU Affero General Public License, version 3](http://www.gnu.org/licenses/agpl-3.0.html) or later.
+
