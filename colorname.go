@@ -90,6 +90,10 @@ func (c *color) populateDistance(d color) {
 	c.distance = delta
 }
 
+func (c *color) printColor() {
+	fmt.Printf("<span style='background: #%02X%02X%02X'>%s</span>\n", c.red, c.green, c.blue, c.name);
+}
+
 func main() {
 	args := os.Args[1:]
 	if len(args) < 1 {
