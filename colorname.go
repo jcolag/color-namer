@@ -83,6 +83,60 @@ func (c *color) populateHsvFromRgb() {
 	c.hue = c.hue * math.Pi / 180
 }
 
+func (c *color) rgbFromOffsetHue(hoff float64) string {
+	var r, g, b int
+	h := c.hue * 180 / math.Pi + hoff
+	s := int(c.sat * 256)
+	v := int(c.val * 256)
+	
+	if (s == 0) {
+		return fmt.Sprintf("%02X%02X%02X", v, v, v)
+	}
+	
+	if (h >= 360) {
+		h = h - 360
+	}
+	
+	h = h / 60
+	i := int(math.Floor(h))
+	f := int(h) - i
+	p := v * (1 - s)
+	q := v * (1 - s * f)
+	t := v * (1 - s * (1 - f))
+	switch(i) {
+	case 0:
+		r = v
+		g = t
+		b = p
+	case 1:
+		r = q
+		g = v
+		b = p
+	case 2:
+		r = p
+		g = v
+		b = t
+	case 3:
+		r = p
+		g = q
+		b = v
+	case 4:
+		r = t
+		g = p
+		b = v
+	case 5:
+		r = v
+		g = p
+		b = q
+	default:
+		r = v
+		g = v
+		b = v
+	}
+	
+	return fmt.Sprintf("%02X%02X%02X", byte(r / 256), byte(g / 256), byte(b / 256))
+}
+
 func (c *color) populateDistance(d color) {
 	cp := position{c.sat * math.Cos(c.hue), c.sat * math.Sin(c.hue), c.val}
 	dp := position{d.sat * math.Cos(d.hue), d.sat * math.Sin(d.hue), d.val}
