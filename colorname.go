@@ -145,7 +145,9 @@ func (c *color) populateDistance(d color) {
 }
 
 func (c *color) printColor() {
-	fmt.Printf("<span style='background: #%02X%02X%02X'>%s</span>\n", c.red, c.green, c.blue, c.name);
+	fmt.Printf(
+		"<span style='background: #%02X%02X%02X; color: #%s'>%s</span>\n",
+		c.red, c.green, c.blue, c.rgbFromOffsetHue(180), c.name);
 }
 
 func main() {
