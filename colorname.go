@@ -198,13 +198,13 @@ func main() {
 		}
 	}
 
-    fmt.Println("<html>\n<body>\n")
-	incolor.printColor()
+    fmt.Println("<html>\n<body>")
+    incolor.printColor()
 	if minDistIdx < 0 {
 		fmt.Println("No match")
 	} else {
 		allcolors[minDistIdx].printColor()
 	}
 	
-	fmt.Println("</body>\n</html>\n")
+	fmt.Println("</body>\n</html>")
 }
