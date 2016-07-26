@@ -85,25 +85,25 @@ func (c *color) populateHsvFromRgb() {
 
 func (c *color) rgbFromOffsetHue(hoff float64) string {
 	var r, g, b int
-	h := c.hue * 180 / math.Pi + hoff
+	h := c.hue*180/math.Pi + hoff
 	s := int(c.sat * 256)
 	v := int(c.val * 256)
-	
-	if (s == 0) {
+
+	if s == 0 {
 		return fmt.Sprintf("%02X%02X%02X", v, v, v)
 	}
-	
-	if (h >= 360) {
+
+	if h >= 360 {
 		h = h - 360
 	}
-	
+
 	h = h / 60
 	i := int(math.Floor(h))
 	f := int(h) - i
 	p := v * (1 - s)
-	q := v * (1 - s * f)
-	t := v * (1 - s * (1 - f))
-	switch(i) {
+	q := v * (1 - s*f)
+	t := v * (1 - s*(1-f))
+	switch i {
 	case 0:
 		r = v
 		g = t
@@ -133,8 +133,8 @@ func (c *color) rgbFromOffsetHue(hoff float64) string {
 		g = v
 		b = v
 	}
-	
-	return fmt.Sprintf("%02X%02X%02X", byte(r / 256), byte(g / 256), byte(b / 256))
+
+	return fmt.Sprintf("%02X%02X%02X", byte(r/256), byte(g/256), byte(b/256))
 }
 
 func (c *color) populateDistance(d color) {
@@ -147,7 +147,7 @@ func (c *color) populateDistance(d color) {
 func (c *color) printColor() {
 	fmt.Printf(
 		"<span style='background: #%02X%02X%02X; color: #%s'>%s</span>\n",
-		c.red, c.green, c.blue, c.rgbFromOffsetHue(180), c.name);
+		c.red, c.green, c.blue, c.rgbFromOffsetHue(180), c.name)
 }
 
 func main() {
@@ -198,13 +198,13 @@ func main() {
 		}
 	}
 
-    fmt.Println("<html>\n<body>")
-    incolor.printColor()
+	fmt.Println("<html>\n<body>")
+	incolor.printColor()
 	if minDistIdx < 0 {
 		fmt.Println("No match")
 	} else {
 		allcolors[minDistIdx].printColor()
 	}
-	
+
 	fmt.Println("</body>\n</html>")
 }
